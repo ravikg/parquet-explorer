@@ -99,6 +99,7 @@ As a maintainer or contributor to the extension, I want development dependencies
 - **FR-013**: The extension MUST detect when upgrading from an old DuckDB binary version and notify the user that the binary is being updated
 - **FR-014**: The extension MUST recommend VSCode restart after DuckDB binary upgrade to ensure proper loading
 - **FR-015**: The previous extension version MUST be maintained in the marketplace or a release branch to enable quick rollback if critical issues are discovered
+- **FR-016**: A local development guide MUST be created documenting how to build the extension from source and run it locally for manual testing
 
 ### Key Entities
 
@@ -130,6 +131,7 @@ As a maintainer or contributor to the extension, I want development dependencies
 - Q: Should the upgrade accept breaking changes in dependencies to use the latest performant APIs? → A: Yes - upgrade to latest versions even with breaking changes, prioritize performance and memory efficiency
 - Q: What is the priority for this upgrade - compatibility or performance? → A: Performance and memory efficiency are primary, accept breaking changes to use latest APIs
 - Q: What specific performance improvement target should the upgrade achieve on large Parquet files (>1M rows)? → A: No specific target - just ensure no performance regression
+- Q: Should local build and testing documentation be created for manual testing? → A: Yes - document how to build and run the plugin locally for manual testing as part of the deliverables
 
 ## Assumptions
 

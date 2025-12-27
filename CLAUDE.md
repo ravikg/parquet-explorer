@@ -77,3 +77,10 @@ Users can configure these VSCode settings:
 ## File Patterns
 
 The extension handles `.parquet`, `.parq`, and `.pq` files.
+
+## Active Technologies
+- TypeScript 5.6.3 (pinned, upgrading from older version) (001-dependency-upgrade)
+- N/A (Parquet files read via DuckDB, in-memory query processing) (001-dependency-upgrade)
+
+## Recent Changes
+- 001-dependency-upgrade: Added TypeScript 5.6.3 (pinned, upgrading from older version)
