@@ -100,6 +100,9 @@ As a maintainer or contributor to the extension, I want development dependencies
 - **FR-014**: The extension MUST recommend VSCode restart after DuckDB binary upgrade to ensure proper loading
 - **FR-015**: The previous extension version MUST be maintained in the marketplace or a release branch to enable quick rollback if critical issues are discovered
 - **FR-016**: A local development guide MUST be created documenting how to build the extension from source and run it locally for manual testing
+- **FR-017**: Phase 0 (prerequisites) MUST verify the current repository builds successfully AND can read a parquet file before any dependency upgrades begin
+- **FR-018**: After each phase completion, a manual testing document MUST be created in docs/ folder (e.g., phase-0-manual-testing.md) documenting steps to test that phase's changes
+- **FR-019**: After each phase completion, a git commit MUST be created with a descriptive commit message (without co-author) to track progress
 
 ### Key Entities
 
@@ -120,8 +123,17 @@ As a maintainer or contributor to the extension, I want development dependencies
 - **SC-006**: Build process completes without errors across all target platforms (Windows, macOS x64/arm64, Linux)
 - **SC-007**: Extension passes linting with updated ESLint rules without introducing new warnings
 - **SC-008**: TypeScript compilation completes without type errors using updated type definitions
+- **SC-009**: Phase 0 baseline verification confirms current project builds and can read parquet files successfully
+- **SC-010**: Each phase has corresponding manual testing documentation in docs/ folder
+- **SC-011**: Git commit history shows clear progression through phases with descriptive commit messages (no co-author)
 
 ## Clarifications
+
+### Session 2025-12-28
+
+- Q: What should Phase 0 ensure before starting the dependency upgrade? → A: Phase 0 must ensure the current repository builds successfully AND can read a parquet file (baseline verification)
+- Q: What documentation should be created after each phase? → A: After each phase, create a manual testing document in docs/ folder (e.g., docs/phase-0-manual-testing.md) documenting steps to test that phase's changes
+- Q: What should happen after completing each phase? → A: Create a git commit after each phase without co-author in the commit message
 
 ### Session 2025-12-27
 

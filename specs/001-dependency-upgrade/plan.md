@@ -10,7 +10,7 @@
 Upgrade Parquet Explorer VSCode extension dependencies to leverage latest performance optimizations and APIs:
 - **VSCode Engine**: Upgrade from 1.74.0 to 1.107.0
 - **DuckDB**: Upgrade from 0.10.2 to 1.4.3 for improved query performance, vectorized execution, and memory efficiency
-- **TypeScript**: Upgrade to pinned version 5.6.3 for latest language features
+- **TypeScript**: Upgrade to pinned version 5.9.3 for latest language features
 - **Development Tooling**: Update ESLint, esbuild to latest stable versions
 
 The upgrade accepts breaking changes in dependencies to prioritize performance and memory efficiency over backward compatibility, particularly for large Parquet files (10M+ rows).

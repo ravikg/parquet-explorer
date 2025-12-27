@@ -223,7 +223,7 @@ User settings remain unchanged (FR-011):
 
 ## Validation Rules
 
-### Type Safety (TypeScript 5.6.3 Strict Mode)
+### Type Safety (TypeScript 5.9.3 Strict Mode)
 
 **Must Enforce**:
 ```typescript
