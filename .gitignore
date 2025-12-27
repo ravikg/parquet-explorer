@@ -43,3 +43,6 @@ yarn.lock
 # build
 out/
 *.vsix
+
+.claude/
+.specify/
