@@ -184,16 +184,23 @@ User settings remain unchanged (FR-011):
     "duckdb": "^1.4.3"  // upgraded from ^0.10.2
   },
   "devDependencies": {
-    "typescript": "5.6.3",  // upgraded, pinned version
-    "@types/vscode": "^1.107.0",  // upgraded from ^1.73.0
-    "@types/node": "^20.0.0",  // upgraded for TS 5.6.3
-    "esbuild": "^0.24.0",  // upgraded from ^0.18.17
-    "@typescript-eslint/eslint-plugin": "^8.0.0",  // upgraded from ^5.42.0
-    "@typescript-eslint/parser": "^8.0.0",  // upgraded from ^5.42.0
-    "eslint": "^8.57.0"  // latest 8.x, not 9.x (avoid flat config migration)
+    "typescript": "5.9.3",  // upgraded, pinned version
+    "@types/vscode": "1.107.0",  // upgraded from ^1.73.0
+    "@types/node": "25.0.3",  // upgraded for TS 5.9.3
+    "esbuild": "0.27.2",  // upgraded from ^0.18.17
+    "@typescript-eslint/eslint-plugin": "^8.0.0",  // update to ^9.0.0 for ESLint 9.x
+    "@typescript-eslint/parser": "^8.0.0",  // update to ^9.0.0 for ESLint 9.x
+    "eslint": "9.39.2"  // upgraded with flat config migration
   }
 }
 ```
+
+**ESLint Configuration Changes**:
+- **Removed**: `.eslintrc.json` (legacy config)
+- **Added**: `eslint.config.js` (flat config format)
+- See research.md §4 for migration details and example config
+
+**Note on @typescript-eslint**: Update to versions ^9.0.0 compatible with ESLint 9.x
 
 ---
 

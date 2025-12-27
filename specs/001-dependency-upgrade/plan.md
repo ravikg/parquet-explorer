@@ -17,14 +17,14 @@ The upgrade accepts breaking changes in dependencies to prioritize performance a
 
 ## Technical Context
 
-**Language/Version**: TypeScript 5.6.3 (pinned, upgrading from older version)
+**Language/Version**: TypeScript 5.9.3 (pinned, upgrading from older version)
 **Primary Dependencies**:
 - duckdb (upgrading: 0.10.2 → 1.4.3)
-- @types/vscode (upgrading to match VSCode 1.107)
-- @types/node (upgrading to match TypeScript 5.6.3)
-- esbuild (upgrading to latest stable)
-- eslint (upgrading to latest stable)
-- @typescript-eslint/* (upgrading to latest stable)
+- @types/vscode (upgrading: ^1.73.0 → 1.107.0)
+- @types/node (upgrading to 25.0.3 compatible with TypeScript 5.9.3)
+- esbuild (upgrading: ^0.18.17 → 0.27.2)
+- eslint (upgrading: ^8.26.0 → 9.39.2 with flat config migration)
+- @typescript-eslint/* (upgrading to latest compatible with ESLint 9.x)
 
 **Storage**: N/A (Parquet files read via DuckDB, in-memory query processing)
 **Testing**: Manual testing with real Parquet files; no automated test framework currently in use
@@ -41,6 +41,7 @@ The upgrade accepts breaking changes in dependencies to prioritize performance a
 - Native binary bundling for DuckDB across all platforms
 - Build process must copy DuckDB binary to ./out/binding/ directory
 - Progressive rendering with configurable chunk size (default: 100 rows)
+- ESLint 9.39.2 requires migration from .eslintrc.json to eslint.config.js (flat config format)
 **Scale/Scope**:
 - Support files with 10M+ rows
 - Single isolated DuckDB database instance per Parquet file
@@ -143,15 +144,17 @@ out/                      # Build output
     └── duckdb.node      # Native binary - will be updated to 1.4.3
 
 package.json             # Updated dependencies: duckdb, @types/*, devDependencies
-tsconfig.json            # May need updates for TypeScript 5.6.3
-.eslintrc.json (if exists) # May need updates for latest ESLint
+tsconfig.json            # May need updates for TypeScript 5.9.3
+eslint.config.js         # NEW: Flat config replacing .eslintrc.json for ESLint 9.39.2
+.eslintrc.json           # REMOVED: Replaced by eslint.config.js
 ```
 
 **Structure Decision**: Single project structure (VSCode extension). The upgrade primarily touches:
 1. `package.json` - dependency version updates
 2. `src/parquetDocument.ts` - DuckDB API migration (0.10.2 → 1.4.3)
 3. `src/extension.ts` - potential VSCode 1.107 API updates
-4. Build scripts - verification of DuckDB binary bundling
+4. `eslint.config.js` - NEW file replacing .eslintrc.json (ESLint 9.x flat config)
+5. Build scripts - verification of DuckDB binary bundling
 
 ## Complexity Tracking
 

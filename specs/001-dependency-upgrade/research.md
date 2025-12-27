@@ -144,7 +144,7 @@ vscode.window.showInformationMessage(
 
 ---
 
-## 3. TypeScript: older → 5.6.3
+## 3. TypeScript: older → 5.9.3
 
 ### Language Changes
 
@@ -152,7 +152,7 @@ vscode.window.showInformationMessage(
 
 **Decision**: Enable enhanced strict mode features incrementally
 
-**Rationale**: TypeScript 5.6.3 adds stricter null checks and type narrowing. Enable these to catch bugs early.
+**Rationale**: TypeScript 5.9.3 adds stricter null checks and type narrowing. Enable these to catch bugs early.
 
 **Migration**:
 ```json
@@ -172,13 +172,13 @@ vscode.window.showInformationMessage(
 
 #### 3.2 Type Definition Updates
 
-**Decision**: Update @types/vscode to match VSCode 1.107, @types/node to match TypeScript 5.6.3
+**Decision**: Update @types/vscode to 1.107.0, @types/node to 25.0.3 compatible with TypeScript 5.9.3
 
 **Finding**:
 ```json
 {
-  "@types/vscode": "^1.107.0",
-  "@types/node": "^20.0.0"  // TypeScript 5.6.3 target
+  "@types/vscode": "1.107.0",
+  "@types/node": "25.0.3"  // Latest, compatible with TypeScript 5.9.3
 }
 ```
 
@@ -191,10 +191,10 @@ vscode.window.showInformationMessage(
 ### esbuild
 
 **Current**: ^0.18.17
-**Target**: Latest stable (~0.24.x)
+**Target**: 0.27.2 (latest stable)
 
 **Breaking Changes**:
-- esbuild 0.24+ changed some bundling defaults
+- esbuild 0.27.2 changed some bundling defaults
 - May need to verify `vscode:prepublish` script still produces correct output
 
 **Action Required**: Test build script with new esbuild, verify minified output works
@@ -202,16 +202,57 @@ vscode.window.showInformationMessage(
 ### ESLint
 
 **Current**: ^8.26.0
-**Target**: Latest stable (~9.x)
+**Target**: 9.39.2 (latest stable) with flat config migration
 
 **Breaking Changes**:
 - ESLint 9.x requires flat config format (eslintrc.json deprecated)
+- Flat config uses `eslint.config.js` instead of `.eslintrc.json`
+- Plugin configuration format changes significantly
 
-**Decision**: Stay on ESLint 8.x OR migrate to flat config
+**Decision**: **Upgrade to ESLint 9.39.2 with flat config migration**
 
-**Rationale**: Flat config migration is non-trivial. For this upgrade focused on DuckDB/VSCode, staying on ESLint 8.x latest reduces risk.
+**Rationale**:
+- User approved upgrade to latest version
+- Future-proofs the project for ongoing ESLint development
+- Flat config provides better TypeScript support and performance
+- Worth the extra migration effort for this dependency upgrade
 
-**Status**: ⚠️ Decision point - upgrade to 8.x latest or migrate to 9.x flat config
+**Migration Requirements**:
+1. Create `eslint.config.js` to replace `.eslintrc.json`
+2. Update plugin imports (use flat config format)
+3. Update `@typescript-eslint` plugins to latest 9.x-compatible versions
+4. Test all linting rules work correctly with new config
+5. Update CI/CD if it references old config file
+
+**Example Flat Config**:
+```javascript
+// eslint.config.js (new)
+import tseslint from '@typescript-eslint/eslint-plugin';
+import tsparser from '@typescript-eslint/parser';
+
+export default [
+  {
+    files: ['src/**/*.ts'],
+    languageOptions: {
+      parser: tsparser,
+      parserOptions: {
+        ecmaVersion: 2022,
+        sourceType: 'module'
+      }
+    },
+    plugins: {
+      '@typescript-eslint': tseslint
+    },
+    rules: {
+      // existing rules migrated
+    }
+  }
+];
+```
+
+**Estimated Effort**: 2-4 hours for migration and testing
+
+**Status**: ✅ Decision confirmed - ESLint 9.39.2 with flat config migration
 
 ---
 

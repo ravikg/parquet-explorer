@@ -88,8 +88,8 @@ As a maintainer or contributor to the extension, I want development dependencies
 - **FR-002**: The extension MUST upgrade DuckDB from version 0.10.2 to version 1.4.3
 - **FR-003**: The extension MUST continue to support .parquet, .parq, and .pq file extensions
 - **FR-004**: The build process MUST successfully bundle the DuckDB 1.4.3 native binary for all platforms (Windows, macOS x64/arm64, Linux)
-- **FR-005**: TypeScript types MUST be updated to compatible versions (@types/vscode matching VSCode 1.107, @types/node compatible with TypeScript)
-- **FR-006**: Development tooling MUST be updated: TypeScript compiler (pinned to specific version, e.g., 5.6.3), ESLint, and esbuild to their latest stable versions
+- **FR-005**: TypeScript types MUST be updated to compatible versions (@types/vscode 1.107.0, @types/node 25.0.3 compatible with TypeScript 5.9.3)
+- **FR-006**: Development tooling MUST be upgraded to latest stable versions: TypeScript 5.9.3 (pinned), esbuild 0.27.2, ESLint 9.39.2 with flat config migration
 - **FR-007**: All existing functionality MUST continue to work after the upgrade where APIs remain compatible; code MUST be updated to use breaking changes in newer APIs to leverage performance improvements
 - **FR-008**: The extension MUST leverage latest DuckDB 1.4.3 APIs for optimal query performance and memory efficiency, even if this requires code changes from 0.10.2 patterns
 - **FR-009**: The extension MUST handle BigInt values from DuckDB queries correctly (no regression in JSON serialization)
@@ -132,13 +132,15 @@ As a maintainer or contributor to the extension, I want development dependencies
 - Q: What is the priority for this upgrade - compatibility or performance? → A: Performance and memory efficiency are primary, accept breaking changes to use latest APIs
 - Q: What specific performance improvement target should the upgrade achieve on large Parquet files (>1M rows)? → A: No specific target - just ensure no performance regression
 - Q: Should local build and testing documentation be created for manual testing? → A: Yes - document how to build and run the plugin locally for manual testing as part of the deliverables
+- Q: What are the latest versions of all dependencies to upgrade to? → A: TypeScript 5.9.3, DuckDB 1.4.3, @types/vscode 1.107.0, @types/node 25.0.3, esbuild 0.27.2, ESLint 9.39.2
 
 ## Assumptions
 
 1. DuckDB 1.4.3 may introduce breaking API changes compared to version 0.10.2; code will be updated to use the latest APIs for optimal performance
 2. VSCode 1.107 may introduce breaking changes to the Custom Editor Provider API; code will be updated to use latest VSCode APIs
 3. The DuckDB 1.4.3 native binary is available for all required platforms via the S3-hosted repository
-4. esbuild's bundling behavior may introduce breaking changes; the build configuration will be updated to leverage latest optimizations
+4. esbuild 0.27.2's bundling behavior may introduce breaking changes; the build configuration will be updated to leverage latest optimizations
 5. Users on older VSCode versions (<1.107) will see a compatibility warning in the marketplace
-6. TypeScript 5.6.3 (pinned specific version) may require code updates to leverage latest language features and type definitions
-7. Performance improvements from DuckDB 1.4.3 (vectorized execution, parallel query processing, optimized memory usage) will be fully leveraged
+6. TypeScript 5.9.3 (pinned specific version) may require code updates to leverage latest language features and type definitions
+7. ESLint 9.39.2 requires migration from .eslintrc.json to flat config format (eslint.config.js)
+8. Performance improvements from DuckDB 1.4.3 (vectorized execution, parallel query processing, optimized memory usage) will be fully leveraged
