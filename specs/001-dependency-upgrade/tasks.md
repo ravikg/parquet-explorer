@@ -32,11 +32,11 @@ description: "Task list for dependency upgrade feature implementation"
 **CRITICAL**: This phase MUST be completed first to establish a working baseline
 
 - [x] T000 [P] Update README.md with comprehensive local build and run instructions including: prerequisites (Node.js, npm), installation steps, build commands, development workflow, and troubleshooting
-- [ ] T001 [P] Install dependencies by running `npm install` without errors
-- [ ] T002 [P] Verify current project builds successfully by running `npm run vscode:prepublish` without errors
-- [ ] T003 [P] Verify current project runs in development mode by launching Extension Development Host (F5) and opening a test .parquet file successfully
-- [ ] T004 [P] Create docs/phase-0-manual-testing.md documenting steps to test baseline functionality before upgrade
-- [ ] T005 [P] Create git commit for Phase 0 completion with message: "Phase 0: Complete prerequisites - update README and verify baseline build" (no co-author)
+- [x] T001 [P] Install dependencies by running `npm install` without errors
+- [x] T002 [P] Verify current project builds successfully by running `npm run vscode:prepublish` without errors
+- [x] T003 [P] Verify current project runs in development mode by launching Extension Development Host (F5) and opening a test .parquet file successfully
+- [x] T004 [P] Create docs/phase-0-manual-testing.md documenting steps to test baseline functionality before upgrade
+- [x] T005 [P] Create git commit for Phase 0 completion with message: "Phase 0: Complete prerequisites - update README and verify baseline build" (no co-author)
 
 **Checkpoint**: Project builds and runs successfully with current dependencies; README documentation complete; baseline testing documented
 
@@ -94,13 +94,13 @@ description: "Task list for dependency upgrade feature implementation"
 
 ### Implementation for User Story 1
 
-- [ ] T030 [US1] Test extension activation on VSCode 1.107+ by opening a .parquet file in Extension Development Host
-- [ ] T031 [US1] Verify Custom Editor Provider API works correctly with VSCode 1.107 in src/extension.ts
-- [ ] T032 [US1] Test that all .parquet, .parq, and .pq file extensions are still supported in package.json customEditors selector
-- [ ] T033 [US1] Verify SQL query execution works correctly on VSCode 1.107+ by running test queries in development instance
-- [ ] T034 [US1] Test query results display correctly in the webview interface on VSCode 1.107+
-- [ ] T035 [P] Create docs/phase-3-manual-testing.md documenting steps to test VSCode 1.107 compatibility (extension activation, query execution, UI rendering)
-- [ ] T036 [P] Create git commit for Phase 3 completion with message: "Phase 3: Complete User Story 1 - VSCode 1.107 compatibility verified" (no co-author)
+- [x] T030 [US1] Test extension activation on VSCode 1.107+ by opening a .parquet file in Extension Development Host
+- [x] T031 [US1] Verify Custom Editor Provider API works correctly with VSCode 1.107 in src/extension.ts
+- [x] T032 [US1] Test that all .parquet, .parq, and .pq file extensions are still supported in package.json customEditors selector
+- [x] T033 [US1] Verify SQL query execution works correctly on VSCode 1.107+ by running test queries in development instance
+- [x] T034 [US1] Test query results display correctly in the webview interface on VSCode 1.107+
+- [x] T035 [P] Create docs/phase-3-manual-testing.md documenting steps to test VSCode 1.107 compatibility (extension activation, query execution, UI rendering)
+- [x] T036 [P] Create git commit for Phase 3 completion with message: "Phase 3: Complete User Story 1 - VSCode 1.107 compatibility verified" (no co-author)
 
 **Checkpoint**: At this point, User Story 1 should be fully functional - extension works on VSCode 1.107+
 
