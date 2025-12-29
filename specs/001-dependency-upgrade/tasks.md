@@ -144,7 +144,7 @@ description: "Task list for dependency upgrade feature implementation"
 - [x] T044 [US2] Test complex SQL queries (joins, aggregations, filters) and verify results are accurate and complete
 - [x] T045 [US2] Verify no native module crashes, memory leaks, or hanging processes when using DuckDB 1.4.3 by monitoring during testing
 - [x] T046 [P] Create docs/phase-4-manual-testing.md documenting steps to test DuckDB 1.4.3 API migration (connection management, query execution, BigInt serialization)
-- [ ] T047 [P] Create git commit for Phase 4 completion with message: "Phase 4: Complete User Story 2 - DuckDB 1.4.3 API migration and verification" (no co-author)
+- [x] T047 [P] Create git commit for Phase 4 completion with message: "Phase 4: Complete User Story 2 - DuckDB 1.4.3 API migration and verification" (no co-author)
 
 **Checkpoint**: At this point, User Story 2 should be fully functional - DuckDB 1.4.3 API migration complete
 
@@ -158,7 +158,7 @@ description: "Task list for dependency upgrade feature implementation"
 
 ### Implementation for User Story 3
 
-- [ ] T048 [P] [US3] Verify progressive rendering (chunked results) still works correctly with DuckDB 1.4.3 in src/parquetDocument.ts query results handling
+- [x] T048 [P] [US3] Verify progressive rendering (chunked results) still works correctly with DuckDB 1.4.3 in src/parquetDocument.ts query results handling
 - [ ] T049 [US3] Test memory usage when opening very large Parquet files (10M+ rows) using Task Manager / Activity Monitor
 - [ ] T050 [US3] Verify query performance is equal to or better than previous version by executing queries and comparing execution times
 - [ ] T051 [US3] Test working with multiple large Parquet files in succession and verify extension properly releases resources between file switches
@@ -178,11 +178,11 @@ description: "Task list for dependency upgrade feature implementation"
 
 ### Implementation for User Story 4
 
-- [ ] T055 [US4] Verify TypeScript 5.9.3 compilation completes without type errors by running `npm run compile` or `tsc -p ./`
-- [ ] T056 [US4] Verify esbuild 0.27.2 bundling works correctly by running `npm run vscode:prepublish` and checking output
-- [ ] T057 [US4] Verify ESLint 9.39.2 with flat config executes successfully by running `npm run lint` with no warnings or errors
-- [ ] T058 [US4] Test that all dependencies install without conflicts by running `npm install` in a fresh environment
-- [ ] T059 [P] Create docs/phase-6-manual-testing.md documenting steps to test development tooling (TypeScript compilation, esbuild bundling, ESLint linting)
+- [x] T055 [US4] Verify TypeScript 5.9.3 compilation completes without type errors by running `npm run compile` or `tsc -p ./`
+- [x] T056 [US4] Verify esbuild 0.27.2 bundling works correctly by running `npm run vscode:prepublish` and checking output
+- [x] T057 [US4] Verify ESLint 9.39.2 with flat config executes successfully by running `npm run lint` with no warnings or errors
+- [x] T058 [US4] Test that all dependencies install without conflicts by running `npm install` in a fresh environment
+- [x] T059 [P] Create docs/phase-6-manual-testing.md documenting steps to test development tooling (TypeScript compilation, esbuild bundling, ESLint linting)
 - [ ] T060 [P] Create git commit for Phase 6 completion with message: "Phase 6: Complete User Story 4 - Development tooling upgraded (TypeScript 5.9.3, esbuild 0.27.2, ESLint 9.39.2)" (no co-author)
 
 **Checkpoint**: At this point, User Story 4 should be fully functional - all development tooling upgraded successfully
