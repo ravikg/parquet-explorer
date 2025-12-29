@@ -3,14 +3,14 @@ import { Disposable } from './dispose';
 import { getNonce } from './util';
 import { parse } from "path"
 
-import * as duckdb from 'duckdb';
+import { Database } from 'duckdb';
 
 interface IMessage {
     type: 'query' | 'more';
     success: boolean;
     message?: string;
-    results?: duckdb.TableData;
-    describe?: duckdb.TableData;
+    results?: any[];
+    describe?: any[];
 }
 
 /**
@@ -28,25 +28,28 @@ class ParquetDocument extends Disposable implements vscode.CustomDocument {
     }
 
     private readonly _uri: vscode.Uri;
-    private readonly _db: duckdb.Database;
+    private readonly _db: Database;
+    private readonly _connection: any;
 
     private constructor(uri: vscode.Uri) {
         super();
         this._uri = uri;
-        this._db = new duckdb.Database(':memory:');
+        this._db = new Database(':memory:');
+        this._connection = this._db.connect();
 
         const config = vscode.workspace.getConfiguration('parquet-explorer')
         let tableName: string = config.get("tableName")!;
         if (config.get("useFileNameAsTableName"))
             tableName = parse(uri.fsPath).name
 
-        this.db.exec(
+        this._connection.exec(
             `CREATE VIEW ${tableName} AS SELECT * FROM read_parquet('${uri.fsPath}');`
         );
     }
 
     public get uri() { return this._uri; }
     public get db() { return this._db; }
+    public get connection() { return this._connection; }
 
     private readonly _onDidDispose = this._register(new vscode.EventEmitter<void>());
     /**
@@ -60,6 +63,8 @@ class ParquetDocument extends Disposable implements vscode.CustomDocument {
      * This happens when all editors for it have been closed.
      */
     dispose(): void {
+        this._connection.close();
+        this._db.close();
         this._onDidDispose.fire();
         super.dispose();
     }
@@ -68,7 +73,7 @@ class ParquetDocument extends Disposable implements vscode.CustomDocument {
         return `SELECT * FROM (\n${sql.replace(';', '')}\n) LIMIT ${limit} OFFSET ${offset}`;
     }
 
-    private cleanResults(results: duckdb.TableData): duckdb.TableData {
+    private cleanResults(results: any[]): any[] {
         // DuckDB can sometimes give us BigInt values, which won't JSON.stringify
         // https://github.com/duckdb/duckdb-node/blob/f9a910d544835f55dac36485d767b1c2f6aafb87/src/statement.cpp#L122
         for (const row of results) {
@@ -82,18 +87,18 @@ class ParquetDocument extends Disposable implements vscode.CustomDocument {
 
     runQuery(sql: string, limit: number, callback: (msg: IMessage) => void): void {
         // Fetch resulting column names and types
-        this.db.all(
+        this._connection.all(
             `DESCRIBE (${sql.replace(';', '')});`,
-            (err, descRes) => {
+            (err: any, descRes: any[]) => {
                 if (err) {
                     callback({ type: 'query', success: false, message: err.message });
                     return;
                 }
 
                 // Execute query
-                this.db.all(
+                this._connection.all(
                     this.formatSql(sql, limit, 0),
-                    (err, res) => {
+                    (err: any, res: any[]) => {
                         if (err) {
                             callback({ type: 'query', success: false, message: err.message });
                             return;
@@ -106,9 +111,9 @@ class ParquetDocument extends Disposable implements vscode.CustomDocument {
     }
 
     fetchMore(sql: string, limit: number, offset: number, callback: (msg: IMessage) => void): void {
-        this.db.all(
+        this._connection.all(
             this.formatSql(sql, limit, offset),
-            (err, res) => {
+            (err: any, res: any[]) => {
                 if (err) {
                     callback({ type: 'more', success: false, message: err.message });
                     return;

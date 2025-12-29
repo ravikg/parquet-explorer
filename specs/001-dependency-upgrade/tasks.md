@@ -126,23 +126,23 @@ description: "Task list for dependency upgrade feature implementation"
 - [x] T042a [P] [US2] Create or enhance tests/helper.ts with DuckDBTestHelper class for test utilities (FR-022)
 - [x] T042b [P] [US2] Add helper methods to tests/helper.ts: listSampleParquetFiles(), getSampleParquetFile(), getParquetSchema(), getParquetRowCount() (FR-022)
 - [x] T042c [P] [US2] Create tests/duckdb.test.ts with comprehensive test suite for DuckDB 1.4.3 API migration (FR-020)
-- [ ] T042d [P] [US2] Add automated test to tests/duckdb.test.ts verifying Database.connect() pattern and connection object creation (FR-023)
-- [ ] T042e [P] [US2] Add automated test to tests/duckdb.test.ts verifying connection disposal order: connection.close() then database.close() (FR-023)
-- [ ] T042f [P] [US2] Add automated test to tests/duckdb.test.ts for SELECT queries with various result types (FR-024)
-- [ ] T042g [P] [US2] Add automated test to tests/duckdb.test.ts for aggregation queries (SUM, COUNT, AVG, GROUP BY) (FR-024)
-- [ ] T042h [P] [US2] Add automated test to tests/duckdb.test.ts for filtered queries (WHERE clauses) (FR-024)
-- [ ] T042i [P] [US2] Add automated test to tests/duckdb.test.ts for queries returning INT64/BigInt columns (FR-024, FR-025)
-- [ ] T042j [P] [US2] Add automated test to tests/duckdb.test.ts verifying BigInt serialization to Number before JSON.stringify (FR-025)
-- [ ] T042k [P] [US2] Add automated test to tests/duckdb.test.ts using small dataset (<100 rows) from tests/fixtures/ (FR-021, FR-024)
-- [ ] T042l [P] [US2] Add automated test to tests/duckdb.test.ts using large dataset (>10,000 rows) from tests/fixtures/ (FR-021, FR-024)
-- [ ] T042m [P] [US2] Run automated test suite with `npm test` and verify all tests pass with >80% code coverage (SC-012)
-- [ ] T042n [US2] Fix any failing automated tests and ensure test coverage meets >80% threshold for modified code paths (SC-012)
+- [x] T042d [P] [US2] Add automated test to tests/duckdb.test.ts verifying Database.connect() pattern and connection object creation (FR-023)
+- [x] T042e [P] [US2] Add automated test to tests/duckdb.test.ts verifying connection disposal order: connection.close() then database.close() (FR-023)
+- [x] T042f [P] [US2] Add automated test to tests/duckdb.test.ts for SELECT queries with various result types (FR-024)
+- [x] T042g [P] [US2] Add automated test to tests/duckdb.test.ts for aggregation queries (SUM, COUNT, AVG, GROUP BY) (FR-024)
+- [x] T042h [P] [US2] Add automated test to tests/duckdb.test.ts for filtered queries (WHERE clauses) (FR-024)
+- [x] T042i [P] [US2] Add automated test to tests/duckdb.test.ts for queries returning INT64/BigInt columns (FR-024, FR-025)
+- [x] T042j [P] [US2] Add automated test to tests/duckdb.test.ts verifying BigInt serialization to Number before JSON.stringify (FR-025)
+- [x] T042k [P] [US2] Add automated test to tests/duckdb.test.ts using small dataset (<100 rows) from tests/fixtures/ (FR-021, FR-024)
+- [x] T042l [P] [US2] Add automated test to tests/duckdb.test.ts using large dataset (>10,000 rows) from tests/fixtures/ (FR-021, FR-024)
+- [x] T042m [P] [US2] Run automated test suite with `npm test` and verify all tests pass with >80% code coverage (SC-012)
+- [x] T042n [US2] Fix any failing automated tests and ensure test coverage meets >80% threshold for modified code paths (SC-012)
 
 ### Manual Testing for DuckDB 1.4.3 API
 
-- [ ] T043 [US2] Test query execution with large Parquet files (>1M rows) and verify results return within expected timeframes
-- [ ] T044 [US2] Test complex SQL queries (joins, aggregations, filters) and verify results are accurate and complete
-- [ ] T045 [US2] Verify no native module crashes, memory leaks, or hanging processes when using DuckDB 1.4.3 by monitoring during testing
+- [x] T043 [US2] Test query execution with large Parquet files (>1M rows) and verify results return within expected timeframes
+- [x] T044 [US2] Test complex SQL queries (joins, aggregations, filters) and verify results are accurate and complete
+- [x] T045 [US2] Verify no native module crashes, memory leaks, or hanging processes when using DuckDB 1.4.3 by monitoring during testing
 - [x] T046 [P] Create docs/phase-4-manual-testing.md documenting steps to test DuckDB 1.4.3 API migration (connection management, query execution, BigInt serialization)
 - [ ] T047 [P] Create git commit for Phase 4 completion with message: "Phase 4: Complete User Story 2 - DuckDB 1.4.3 API migration and verification" (no co-author)
 
