@@ -82,6 +82,8 @@ The extension handles `.parquet`, `.parq`, and `.pq` files.
 - TypeScript 5.6.3 (pinned, upgrading from older version) (001-dependency-upgrade)
 - N/A (Parquet files read via DuckDB, in-memory query processing) (001-dependency-upgrade)
 - TypeScript 5.9.3 (pinned, upgrading from older version) (001-dependency-upgrade)
+- TypeScript 5.9.3 (pinned) + DuckDB 1.4.3 (upgraded from 0.10.2), VSCode Extension API 1.107.0, @types/node 25.0.3 (001-dependency-upgrade)
+- In-memory DuckDB database per Parquet file (no external storage) (001-dependency-upgrade)
 
 ## Recent Changes
 - 001-dependency-upgrade: Added TypeScript 5.6.3 (pinned, upgrading from older version)

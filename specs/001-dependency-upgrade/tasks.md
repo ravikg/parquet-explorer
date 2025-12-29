@@ -8,9 +8,9 @@ description: "Task list for dependency upgrade feature implementation"
 **Input**: Design documents from `/specs/001-dependency-upgrade/`
 **Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, quickstart.md
 
-**Tests**: Per specification, tests are NOT explicitly requested. This is a dependency upgrade with manual testing procedures documented in quickstart.md.
+**Tests**: Per specification (FR-020 through FR-025), automated tests ARE REQUIRED for breaking API changes. Tests must be created in tests/ directory using sample Parquet files provided by user in tests/fixtures/. Automated tests are integrated directly into implementation phases (e.g., T042a-T042n in Phase 4). Manual testing procedures are also documented in quickstart.md and phase testing guides.
 
-**Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
+**Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story. **Total Tasks**: 87 (increased from 74 to include automated tests)
 
 ## Format: `[ID] [P?] [Story] Description`
 
@@ -46,20 +46,20 @@ description: "Task list for dependency upgrade feature implementation"
 
 **Purpose**: Project initialization and dependency version updates
 
-- [ ] T006 Update VSCode engine version to ^1.107.0 in package.json
-- [ ] T007 Update DuckDB dependency from ^0.10.2 to ^1.4.3 in package.json
-- [ ] T008 Update TypeScript to pinned version 5.9.3 in package.json devDependencies
-- [ ] T009 Update @types/vscode to 1.107.0 in package.json devDependencies
-- [ ] T010 Update @types/node to 25.0.3 in package.json devDependencies
-- [ ] T011 Update esbuild to 0.27.2 in package.json devDependencies
-- [ ] T012 Update ESLint to 9.39.2 in package.json devDependencies
-- [ ] T013 Update @typescript-eslint/eslint-plugin to latest 9.x-compatible version in package.json devDependencies
-- [ ] T014 Update @typescript-eslint/parser to latest 9.x-compatible version in package.json devDependencies
-- [ ] T015 Update TypeScript compiler options in tsconfig.json for strict mode (if not already enabled)
-- [ ] T016 Run `npm install` to install all updated dependencies and resolve any peer dependency conflicts
-- [ ] T017 Fix any TypeScript compilation errors introduced by new type definitions or strict mode
-- [ ] T018 [P] Create docs/phase-1-manual-testing.md documenting steps to test dependency updates (verify all dependencies installed correctly)
-- [ ] T019 [P] Create git commit for Phase 1 completion with message: "Phase 1: Update all dependencies (VSCode 1.107.0, DuckDB 1.4.3, TypeScript 5.9.3, ESLint 9.39.2)" (no co-author)
+- [x] T006 Update VSCode engine version to ^1.107.0 in package.json
+- [x] T007 Update DuckDB dependency from ^0.10.2 to ^1.4.3 in package.json
+- [x] T008 Update TypeScript to pinned version 5.9.3 in package.json devDependencies
+- [x] T009 Update @types/vscode to 1.107.0 in package.json devDependencies
+- [x] T010 Update @types/node to 25.0.3 in package.json devDependencies
+- [x] T011 Update esbuild to 0.27.2 in package.json devDependencies
+- [x] T012 Update ESLint to 9.39.2 in package.json devDependencies
+- [x] T013 Update @typescript-eslint/eslint-plugin to latest 9.x-compatible version in package.json devDependencies
+- [x] T014 Update @typescript-eslint/parser to latest 9.x-compatible version in package.json devDependencies
+- [x] T015 Update TypeScript compiler options in tsconfig.json for strict mode (if not already enabled)
+- [x] T016 Run `npm install` to install all updated dependencies and resolve any peer dependency conflicts
+- [x] T017 Fix any TypeScript compilation errors introduced by new type definitions or strict mode
+- [x] T018 [P] Create docs/phase-1-manual-testing.md documenting steps to test dependency updates (verify all dependencies installed correctly)
+- [x] T019 [P] Create git commit for Phase 1 completion with message: "Phase 1: Update all dependencies (VSCode 1.107.0, DuckDB 1.4.3, TypeScript 5.9.3, ESLint 9.39.2)" (no co-author)
 
 **Checkpoint**: All dependencies updated and installed successfully
 
@@ -71,16 +71,16 @@ description: "Task list for dependency upgrade feature implementation"
 
 ⚠️ **CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T020 Create eslint.config.js with flat config format to replace .eslintrc.json (ESLint 9.x requirement)
-- [ ] T021 Configure TypeScript parser and @typescript-eslint plugin in eslint.config.js using flat config format
-- [ ] T022 Migrate existing linting rules from .eslintrc.json to eslint.config.js (preserve all existing rules)
-- [ ] T023 Delete old .eslintrc.json file after eslint.config.js is created and verified working
-- [ ] T024 Run `npm run lint` to verify ESLint 9.39.2 flat config works correctly without errors
-- [ ] T025 Verify `npm run vscode:prepublish` build script correctly bundles DuckDB 1.4.3 binary to ./out/binding/duckdb.node
-- [ ] T026 Update package.json binary configuration to point to DuckDB 1.4.3 S3 hosting structure (if needed)
-- [ ] T027 Run `npm run vscode:prepublish` and verify build completes without errors across all platforms
-- [ ] T028 [P] Create docs/phase-2-manual-testing.md documenting steps to test ESLint 9.39.2 flat config and build verification
-- [ ] T029 [P] Create git commit for Phase 2 completion with message: "Phase 2: Migrate to ESLint 9.39.2 flat config and verify build with DuckDB 1.4.3" (no co-author)
+- [x] T020 Create eslint.config.js with flat config format to replace .eslintrc.json (ESLint 9.x requirement)
+- [x] T021 Configure TypeScript parser and @typescript-eslint plugin in eslint.config.js using flat config format
+- [x] T022 Migrate existing linting rules from .eslintrc.json to eslint.config.js (preserve all existing rules)
+- [x] T023 Delete old .eslintrc.json file after eslint.config.js is created and verified working
+- [x] T024 Run `npm run lint` to verify ESLint 9.39.2 flat config works correctly without errors
+- [x] T025 Verify `npm run vscode:prepublish` build script correctly bundles DuckDB 1.4.3 binary to ./out/binding/duckdb.node
+- [x] T026 Update package.json binary configuration to point to DuckDB 1.4.3 S3 hosting structure (if needed)
+- [x] T027 Run `npm run vscode:prepublish` and verify build completes without errors across all platforms
+- [x] T028 [P] Create docs/phase-2-manual-testing.md documenting steps to test ESLint 9.39.2 flat config and build verification
+- [x] T029 [P] Create git commit for Phase 2 completion with message: "Phase 2: Migrate to ESLint 9.39.2 flat config and verify build with DuckDB 1.4.3" (no co-author)
 
 **Checkpoint**: Foundation ready - DuckDB API migration and user story implementation can now begin
 
@@ -114,16 +114,36 @@ description: "Task list for dependency upgrade feature implementation"
 
 ### Implementation for User Story 2
 
-- [ ] T037 [P] [US2] Update DuckDB imports in src/parquetDocument.ts (if using default imports, verify compatibility with 1.4.3)
-- [ ] T038 [US2] Migrate DuckDB connection initialization from `new Database()` to `Database.connect()` pattern in src/parquetDocument.ts constructor
-- [ ] T039 [US2] Add `connection` attribute to ParquetDocument class in src/parquetDocument.ts to hold DuckDB 1.4.3 connection object
-- [ ] T040 [US2] Update query execution method in src/parquetDocument.ts from `db.exec()` to `await conn.all()` pattern
-- [ ] T041 [US2] Update ParquetDocument dispose method in src/parquetDocument.ts to close connection before closing database: `connection.close()` then `database.close()`
-- [ ] T042 [US2] Verify BigInt serialization in src/parquetDocument.ts still works correctly with DuckDB 1.4.3 BigInt handling (test with INT64 columns)
+- [x] T037 [P] [US2] Update DuckDB imports in src/parquetDocument.ts (if using default imports, verify compatibility with 1.4.3)
+- [x] T038 [US2] Migrate DuckDB connection initialization from `new Database()` to `Database.connect()` pattern in src/parquetDocument.ts constructor
+- [x] T039 [US2] Add `connection` attribute to ParquetDocument class in src/parquetDocument.ts to hold DuckDB 1.4.3 connection object
+- [x] T040 [US2] Update query execution method in src/parquetDocument.ts from `db.exec()` to `await conn.all()` pattern
+- [x] T041 [US2] Update ParquetDocument dispose method in src/parquetDocument.ts to close connection before closing database: `connection.close()` then `database.close()`
+- [x] T042 [US2] Verify BigInt serialization in src/parquetDocument.ts still works correctly with DuckDB 1.4.3 BigInt handling (test with INT64 columns)
+
+### Automated Tests for DuckDB 1.4.3 API (FR-020 through FR-025)
+
+- [x] T042a [P] [US2] Create or enhance tests/helper.ts with DuckDBTestHelper class for test utilities (FR-022)
+- [x] T042b [P] [US2] Add helper methods to tests/helper.ts: listSampleParquetFiles(), getSampleParquetFile(), getParquetSchema(), getParquetRowCount() (FR-022)
+- [x] T042c [P] [US2] Create tests/duckdb.test.ts with comprehensive test suite for DuckDB 1.4.3 API migration (FR-020)
+- [ ] T042d [P] [US2] Add automated test to tests/duckdb.test.ts verifying Database.connect() pattern and connection object creation (FR-023)
+- [ ] T042e [P] [US2] Add automated test to tests/duckdb.test.ts verifying connection disposal order: connection.close() then database.close() (FR-023)
+- [ ] T042f [P] [US2] Add automated test to tests/duckdb.test.ts for SELECT queries with various result types (FR-024)
+- [ ] T042g [P] [US2] Add automated test to tests/duckdb.test.ts for aggregation queries (SUM, COUNT, AVG, GROUP BY) (FR-024)
+- [ ] T042h [P] [US2] Add automated test to tests/duckdb.test.ts for filtered queries (WHERE clauses) (FR-024)
+- [ ] T042i [P] [US2] Add automated test to tests/duckdb.test.ts for queries returning INT64/BigInt columns (FR-024, FR-025)
+- [ ] T042j [P] [US2] Add automated test to tests/duckdb.test.ts verifying BigInt serialization to Number before JSON.stringify (FR-025)
+- [ ] T042k [P] [US2] Add automated test to tests/duckdb.test.ts using small dataset (<100 rows) from tests/fixtures/ (FR-021, FR-024)
+- [ ] T042l [P] [US2] Add automated test to tests/duckdb.test.ts using large dataset (>10,000 rows) from tests/fixtures/ (FR-021, FR-024)
+- [ ] T042m [P] [US2] Run automated test suite with `npm test` and verify all tests pass with >80% code coverage (SC-012)
+- [ ] T042n [US2] Fix any failing automated tests and ensure test coverage meets >80% threshold for modified code paths (SC-012)
+
+### Manual Testing for DuckDB 1.4.3 API
+
 - [ ] T043 [US2] Test query execution with large Parquet files (>1M rows) and verify results return within expected timeframes
 - [ ] T044 [US2] Test complex SQL queries (joins, aggregations, filters) and verify results are accurate and complete
 - [ ] T045 [US2] Verify no native module crashes, memory leaks, or hanging processes when using DuckDB 1.4.3 by monitoring during testing
-- [ ] T046 [P] Create docs/phase-4-manual-testing.md documenting steps to test DuckDB 1.4.3 API migration (connection management, query execution, BigInt serialization)
+- [x] T046 [P] Create docs/phase-4-manual-testing.md documenting steps to test DuckDB 1.4.3 API migration (connection management, query execution, BigInt serialization)
 - [ ] T047 [P] Create git commit for Phase 4 completion with message: "Phase 4: Complete User Story 2 - DuckDB 1.4.3 API migration and verification" (no co-author)
 
 **Checkpoint**: At this point, User Story 2 should be fully functional - DuckDB 1.4.3 API migration complete

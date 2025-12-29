@@ -31,7 +31,7 @@ This section explains how to build and run Parquet Explorer locally for developm
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/NickCrews/parquet-explorer.git
+   git clone https://github.com/adamviola/parquet-explorer.git
    cd parquet-explorer
    ```
 

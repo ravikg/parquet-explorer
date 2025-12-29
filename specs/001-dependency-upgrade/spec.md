@@ -33,7 +33,7 @@ As a user analyzing large Parquet files, I want the extension to use the latest 
 
 **Acceptance Scenarios**:
 
-1. **Given** a user opens a Parquet file with millions of rows, **When** they execute a SELECT query, **Then** results return within expected timeframes and display correctly
+1. **Given** a user opens a Parquet file with millions of rows, **When** they execute a SELECT query, **Then** results return within expected timeframes and display correctly (within 10% of previous version execution time)
 2. **Given** a user executes complex SQL queries (joins, aggregations, filters), **When** the query completes, **Then** results are accurate and complete
 3. **Given** the extension uses DuckDB 1.4.3, **When** queries execute, **Then** there are no native module crashes, memory leaks, or hanging processes
 
@@ -49,8 +49,8 @@ As a data analyst working with large Parquet files, I want the extension to use 
 
 **Acceptance Scenarios**:
 
-1. **Given** a user opens a very large Parquet file (10M+ rows), **When** they execute queries, **Then** memory usage remains efficient (no memory leaks or excessive consumption)
-2. **Given** the extension uses DuckDB 1.4.3, **When** queries are executed, **Then** performance is equal to or better than the previous version by leveraging vectorized execution and parallel processing
+1. **Given** a user opens a very large Parquet file (10M+ rows), **When** they execute queries, **Then** memory usage remains within 10% of the previous version's memory consumption (no memory leaks or excessive consumption)
+2. **Given** the extension uses DuckDB 1.4.3, **When** queries are executed, **Then** performance is equal to or better than the previous version by leveraging vectorized execution and parallel processing (within 10% execution time)
 3. **Given** a user works with multiple large Parquet files in succession, **When** they switch between files, **Then** the extension properly releases resources and does not accumulate memory across sessions
 
 ---
@@ -73,12 +73,12 @@ As a maintainer or contributor to the extension, I want development dependencies
 
 ### Edge Cases
 
-- **Cached binary handling**: When users update the extension, the extension detects the old DuckDB binary version, displays a notification that the binary is being updated, and recommends restarting VSCode to ensure proper loading
+- **Cached binary handling**: When users update the extension, the extension detects the old DuckDB binary version and displays a one-time, dismissible notification on the first Parquet file open after upgrade, recommending VSCode restart for optimal performance. The notification does not reappear if dismissed.
 - **Rollback strategy**: If critical issues are discovered after upgrade, maintain the previous extension version in the marketplace or a release branch to enable quick re-publication as a fallback
-- How does the extension handle Parquet files created with older or newer Parquet format versions?
-- What happens if a user is on an older VSCode version (<1.74.0) after the upgrade?
-- How does the build process handle platform-specific DuckDB binaries across different architectures (x64, arm64)?
-- What happens if esbuild's minification or bundling behavior changes in the new version?
+- **Parquet format compatibility**: The extension relies on DuckDB 1.4.3 to handle Parquet files; DuckDB supports reading Parquet files created by various versions of the Parquet format
+- **Older VSCode versions**: Users on VSCode versions older than 1.107.0 will see a compatibility warning in the marketplace and will not be able to install or update to this version
+- **Platform-specific binaries**: The build process uses DuckDB's native module loading which automatically downloads the correct binary for the platform (Windows, macOS x64/arm64, Linux) from S3
+- **esbuild behavior changes**: The build configuration will be tested and adjusted if esbuild 0.27.2 introduces breaking changes to minification or bundling behavior
 
 ## Requirements *(mandatory)*
 
@@ -96,13 +96,19 @@ As a maintainer or contributor to the extension, I want development dependencies
 - **FR-010**: Build scripts MUST correctly copy the new DuckDB binary to ./out/binding/ directory
 - **FR-011**: The extension MUST maintain backward compatibility with user settings (defaultQuery, tableName, chunkSize, etc.)
 - **FR-012**: The extension MUST maintain memory efficiency when working with large Parquet files by leveraging DuckDB 1.4.3's efficient data loading APIs, ensuring no memory regression
-- **FR-013**: The extension MUST detect when upgrading from an old DuckDB binary version and notify the user that the binary is being updated
-- **FR-014**: The extension MUST recommend VSCode restart after DuckDB binary upgrade to ensure proper loading
+- **FR-013**: The extension MUST detect when upgrading from an old DuckDB binary version and display a one-time, dismissible information message to the user on first Parquet file open after upgrade
+- **FR-014**: The extension MUST recommend VSCode restart in the upgrade notification message, but the restart is optional and the notification does not reappear if dismissed
 - **FR-015**: The previous extension version MUST be maintained in the marketplace or a release branch to enable quick rollback if critical issues are discovered
 - **FR-016**: A local development guide MUST be created documenting how to build the extension from source and run it locally for manual testing
 - **FR-017**: Phase 0 (prerequisites) MUST verify the current repository builds successfully AND can read a parquet file before any dependency upgrades begin
 - **FR-018**: After each phase completion, a manual testing document MUST be created in docs/ folder (e.g., phase-0-manual-testing.md) documenting steps to test that phase's changes
 - **FR-019**: After each phase completion, a git commit MUST be created with a descriptive commit message (without co-author) to track progress
+- **FR-020**: For breaking API changes (e.g., DuckDB 0.10.2 → 1.4.3 migration), automated unit tests MUST be created before completing the migration to ensure correctness and prevent regressions. Tests MUST be located in tests/ directory and MUST pass before marking the migration complete.
+- **FR-021**: Automated tests MUST cover core functionality affected by breaking changes: connection initialization, query execution, result serialization, and resource cleanup. Tests MUST use both programmatically created test data AND sample Parquet files provided by the user.
+- **FR-022**: Test helper utilities MUST be created or enhanced in tests/helper.ts to support loading sample Parquet files from tests/fixtures/ directory. Helper MUST provide methods to: list sample files, load specific files, inspect Parquet schema, and verify row counts.
+- **FR-023**: Automated tests MUST verify DuckDB 1.4.3 connection management: Database.connect() pattern, connection object creation, proper disposal order (connection.close() then database.close()), and resource cleanup.
+- **FR-024**: Automated tests MUST verify query execution with DuckDB 1.4.3: SELECT queries, aggregations, filters, joins, and queries returning INT64/BigInt columns. Tests MUST use both small datasets (<100 rows) and large datasets (>10,000 rows).
+- **FR-025**: Automated tests MUST verify BigInt serialization for all DuckDB 1.4.3 queries: BigInt values MUST be converted to Number before JSON.stringify, and tests MUST confirm no "BigInt cannot be serialized" errors occur.
 
 ### Key Entities
 
@@ -116,8 +122,8 @@ As a maintainer or contributor to the extension, I want development dependencies
 ### Measurable Outcomes
 
 - **SC-001**: Extension installs and activates successfully on VSCode 1.107+ without engine compatibility warnings
-- **SC-002**: Query execution performance on large files (>1M rows) maintains parity with the previous version (no performance regression)
-- **SC-003**: Memory usage when working with large Parquet files is stable and efficient, with no memory leaks or excessive consumption compared to the previous version
+- **SC-002**: Query execution performance on large files (>1M rows) is within 10% of the previous version's execution time
+- **SC-003**: Memory usage when working with large Parquet files is within 10% of the previous version's memory consumption, with no memory leaks or excessive consumption
 - **SC-004**: All existing extension features work correctly: query execution, result display, pagination, error handling
 - **SC-005**: Extension leverages latest APIs from upgraded dependencies for optimal performance, even when this requires code changes from older API patterns
 - **SC-006**: Build process completes without errors across all target platforms (Windows, macOS x64/arm64, Linux)
@@ -126,14 +132,23 @@ As a maintainer or contributor to the extension, I want development dependencies
 - **SC-009**: Phase 0 baseline verification confirms current project builds and can read parquet files successfully
 - **SC-010**: Each phase has corresponding manual testing documentation in docs/ folder
 - **SC-011**: Git commit history shows clear progression through phases with descriptive commit messages (no co-author)
+- **SC-012**: Automated unit tests pass for all breaking API changes (e.g., DuckDB migration tests cover connection, query execution, serialization, disposal). Test suite MUST achieve >80% code coverage for modified code paths.
+- **SC-013**: Test suite includes sample Parquet files in tests/fixtures/ directory for automated testing of core functionality. Test helper MUST support loading and inspecting these sample files.
 
 ## Clarifications
+
+### Session 2025-12-29
+
+- Q: When should the DuckDB binary upgrade notification appear to users, and what should happen if they ignore it? → A: Show notification on first Parquet file open after upgrade, dismissible, does not reappear, VSCode restart recommended but optional
+- Q: What measurable thresholds should define "no performance regression" for query execution and memory usage? → A: Within 10% of previous version
+- Q: Should automated tests be part of the DuckDB API code changes implementation? → A: Yes, automated tests MUST be created as part of the implementation, not as a separate phase. Tests verify DuckDB 1.4.3 connection management, query execution, and BigInt serialization work correctly (FR-020 through FR-025)
 
 ### Session 2025-12-28
 
 - Q: What should Phase 0 ensure before starting the dependency upgrade? → A: Phase 0 must ensure the current repository builds successfully AND can read a parquet file (baseline verification)
 - Q: What documentation should be created after each phase? → A: After each phase, create a manual testing document in docs/ folder (e.g., docs/phase-0-manual-testing.md) documenting steps to test that phase's changes
 - Q: What should happen after completing each phase? → A: Create a git commit after each phase without co-author in the commit message
+- Q: For breaking API changes like the DuckDB migration, what testing approach should be used? → A: Add automated unit tests NOW before completing current DuckDB migration - safer but delays current work
 
 ### Session 2025-12-27
 
@@ -156,3 +171,5 @@ As a maintainer or contributor to the extension, I want development dependencies
 6. TypeScript 5.9.3 (pinned specific version) may require code updates to leverage latest language features and type definitions
 7. ESLint 9.39.2 requires migration from .eslintrc.json to flat config format (eslint.config.js)
 8. Performance improvements from DuckDB 1.4.3 (vectorized execution, parallel query processing, optimized memory usage) will be fully leveraged
+9. Automated unit tests will be created for breaking API changes (e.g., DuckDB migration) before completing the migration to ensure correctness
+10. Sample Parquet files will be provided by the user and placed in tests/fixtures/ directory to support automated testing with real-world data
