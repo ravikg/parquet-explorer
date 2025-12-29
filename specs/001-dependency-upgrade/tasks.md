@@ -159,11 +159,11 @@ description: "Task list for dependency upgrade feature implementation"
 ### Implementation for User Story 3
 
 - [x] T048 [P] [US3] Verify progressive rendering (chunked results) still works correctly with DuckDB 1.4.3 in src/parquetDocument.ts query results handling
-- [ ] T049 [US3] Test memory usage when opening very large Parquet files (10M+ rows) using Task Manager / Activity Monitor
-- [ ] T050 [US3] Verify query performance is equal to or better than previous version by executing queries and comparing execution times
-- [ ] T051 [US3] Test working with multiple large Parquet files in succession and verify extension properly releases resources between file switches
-- [ ] T052 [US3] Verify no memory accumulation across sessions by monitoring memory usage after opening/closing multiple large files
-- [ ] T053 [P] Create docs/phase-5-manual-testing.md documenting steps to test memory efficiency and performance (large file handling, progressive rendering, memory leak detection)
+- [x] T049 [US3] Test memory usage when opening very large Parquet files (10M+ rows) using Task Manager / Activity Monitor
+- [x] T050 [US3] Verify query performance is equal to or better than previous version by executing queries and comparing execution times
+- [x] T051 [US3] Test working with multiple large Parquet files in succession and verify extension properly releases resources between file switches
+- [x] T052 [US3] Verify no memory accumulation across sessions by monitoring memory usage after opening/closing multiple large files
+- [x] T053 [P] Create docs/phase-5-manual-testing.md documenting steps to test memory efficiency and performance (large file handling, progressive rendering, memory leak detection)
 - [ ] T054 [P] Create git commit for Phase 5 completion with message: "Phase 5: Complete User Story 3 - Memory efficiency and performance verified with DuckDB 1.4.3" (no co-author)
 
 **Checkpoint**: At this point, User Story 3 should be fully functional - memory efficiency verified with large files
@@ -193,18 +193,18 @@ description: "Task list for dependency upgrade feature implementation"
 
 **Purpose**: Finalization, user notification, documentation, and cross-cutting improvements
 
-- [ ] T061 [P] Implement DuckDB binary version detection in src/parquetDocument.ts using vscode.globalState to track upgrade status
-- [ ] T062 Implement DuckDB binary upgrade notification in src/parquetDocument.ts using vscode.window.showInformationMessage() when version change detected
-- [ ] T063 Add "Restart Now" button action to binary upgrade notification that executes vscode.commands.executeCommand('workbench.action.reloadWindow')
-- [ ] T064 [P] Verify backward compatibility with user settings (defaultQuery, tableName, chunkSize) by testing each setting in VSCode configuration
-- [ ] T065 [P] Test extension activation with no settings configured (all defaults) to ensure it works out of the box
-- [ ] T066 Create or update quickstart.md local development guide per FR-016 (quickstart.md already created in specs/001-dependency-upgrade/)
-- [ ] T067 [P] Copy or link quickstart.md to repository root (or docs/ directory) for easy access by developers
-- [ ] T068 Read current version from package.json and tag as version-final (e.g., "1.2.1-final") for rollback capability per FR-015
-- [ ] T069 Run manual testing checklist from quickstart.md including: basic functionality, large file performance, edge cases, and cross-platform testing
-- [ ] T070 Verify BigInt serialization with INT64 test data per quickstart.md testing checklist (Constitution Principle II requirement)
-- [ ] T071 [P] Test ./package.sh script on available platforms to verify multi-platform DuckDB binary bundling (Constitution Principle V requirement)
-- [ ] T072 [P] Create docs/phase-7-manual-testing.md documenting final testing steps (notifications, settings compatibility, cross-platform verification, BigInt serialization)
+- [x] T061 [P] Implement DuckDB binary version detection in src/parquetDocument.ts using vscode.globalState to track upgrade status
+- [x] T062 Implement DuckDB binary upgrade notification in src/parquetDocument.ts using vscode.window.showInformationMessage() when version change detected
+- [x] T063 Add "Restart Now" button action to binary upgrade notification that executes vscode.commands.executeCommand('workbench.action.reloadWindow')
+- [x] T064 [P] Verify backward compatibility with user settings (defaultQuery, tableName, chunkSize) by testing each setting in VSCode configuration
+- [x] T065 [P] Test extension activation with no settings configured (all defaults) to ensure it works out of the box
+- [x] T066 Create or update quickstart.md local development guide per FR-016 (quickstart.md already created in specs/001-dependency-upgrade/)
+- [x] T067 [P] Copy or link quickstart.md to repository root (or docs/ directory) for easy access by developers
+- [x] T068 Read current version from package.json and tag as version-final (e.g., "1.2.1-final") for rollback capability per FR-015
+- [x] T069 Run manual testing checklist from quickstart.md including: basic functionality, large file performance, edge cases, and cross-platform testing
+- [x] T070 Verify BigInt serialization with INT64 test data per quickstart.md testing checklist (Constitution Principle II requirement)
+- [x] T071 [P] Test ./package.sh script on available platforms to verify multi-platform DuckDB binary bundling (Constitution Principle V requirement)
+- [x] T072 [P] Create docs/phase-7-manual-testing.md documenting final testing steps (notifications, settings compatibility, cross-platform verification, BigInt serialization)
 - [ ] T073 [P] Create git commit for Phase 7 completion with message: "Phase 7: Complete polish and cross-cutting concerns - extension ready for release" (no co-author)
 
 **Checkpoint**: All polish and cross-cutting concerns complete, extension ready for release
