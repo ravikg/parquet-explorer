@@ -46,3 +46,7 @@ out/
 
 .claude/
 .specify/
+
+# Documentation and specs (not needed in repo)
+docs/
+specs/
