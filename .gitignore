@@ -43,3 +43,10 @@ yarn.lock
 # build
 out/
 *.vsix
+
+.claude/
+.specify/
+
+# Documentation and specs (not needed in repo)
+docs/
+specs/
